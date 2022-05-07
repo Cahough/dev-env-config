@@ -13,6 +13,10 @@ Personal configuration for development environment
   ```bash
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ```
+  to install all formulae from file:
+  ```bash
+  xargs brew install < /config_files/homebrew/brew_list.txt
+  ```
   
 ### Terminal Customization
 - Install a [NerdFont](https://www.nerdfonts.com)
