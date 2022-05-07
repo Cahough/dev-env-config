@@ -1,0 +1,3 @@
+libzip
+tldr
+zstd
