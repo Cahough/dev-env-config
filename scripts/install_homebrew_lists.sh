@@ -11,5 +11,5 @@ then
   xargs brew install < ../config_files/homebrew/brew_list.txt
 
   echo "install homebrew casks ..."
-  xargs brew install --cask < /config_files/homebrew/cask_list.txt
+  xargs brew install --cask < ../config_files/homebrew/cask_list.txt
 fi
