@@ -2,4 +2,14 @@
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.fontFamily": "MesloLGS NF",
+    "security.workspace.trust.untrustedFiles": "open",
+    "grunt.autoDetect": "on",
+    "workbench.editorAssociations": {
+        "git-rebase-todo": "default"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "workbench.colorTheme": "Default Dark+",
+    "editor.tabSize": 2,
 }

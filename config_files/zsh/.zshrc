@@ -88,6 +88,12 @@ source $ZSH/oh-my-zsh.sh
 export CLICOLOR="Yes"
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd # Look into installing GNU ls and using LS_COLORS instead?
 
+# Set AWS config path
+export AWS_CONFIG_FILE=/Users/carterhough/.aws/config
+
+# pyenv config
+export PYENV_ROOT="$HOME/.pyenv"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -109,10 +115,21 @@ alias zshrc="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias p10k="code ~/.p10k.zsh"
 alias x="exit"
+alias awslogin="aws sso login --profile $1"
 
 # FUNCTIONS
 # ---------------
+# Follow Symlink
 function fs { local dir=$(readlink -e $1); [[ -n "$dir" ]] && cd $dir; }
+
+# (Git) Rebase with previous commit (or specified number of commits back)
+function rwpc {
+  if [ -z "$1" ]; then
+    git rebase HEAD~2 -i
+  else
+    git rebase HEAD~$1 -i
+  fi    
+}
 
 # PATH MODIFICATIONS
 # ---------------
@@ -125,10 +142,24 @@ path+=("/usr/local/bin/")
 path+=("/opt/homebrew/bin")
 # VS Code
 path+=("/Applications/Visual Studio Code.app/Contents/Resources/app/bin")
+# Pyenv
+command -v pyenv >/dev/null || path=("$PYENV_ROOT/bin" $path)
+# PostgreSQL
+path+=("/opt/homebrew/opt/postgresql@12/bin")
 
 export PATH
 
-source ~/.powerlevel10k/powerlevel10k.zsh-theme
+# EVAL / SOURCE
+# ---------------
 
+# Pyenv
+eval "$(pyenv init -)"
+
+# Powerlevel10k
+source ~/.powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
