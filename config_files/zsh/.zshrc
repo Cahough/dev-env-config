@@ -116,6 +116,9 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 alias p10k="code ~/.p10k.zsh"
 alias x="exit"
 alias awslogin="aws sso login --profile $1"
+alias python="python3"
+alias 1p='function _1p() { op run --env-file="$HOME/op.env" -- bash -c "$@"; }; _1p'
+alias newenv='pyenv virtualenv "$1" "venv-$1"'
 
 # FUNCTIONS
 # ---------------
@@ -130,6 +133,18 @@ function rwpc {
     git rebase HEAD~$1 -i
   fi    
 }
+
+# AWS SSO login shortcut
+function awslogin {
+  if [[ -n "$1" ]]; then
+    aws sso login --profile "$1";
+  else
+    aws sso login
+  fi
+}
+
+# Make directory and change into it
+function cm { mkdir -p "$1" && cd "$1"; }
 
 # PATH MODIFICATIONS
 # ---------------
@@ -153,13 +168,16 @@ export PATH
 # ---------------
 
 # Pyenv
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+# Pyenv Virtualenv
+# eval "$(pyenv virtualenv-init -)"
 
 # Powerlevel10k
 source ~/.powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
